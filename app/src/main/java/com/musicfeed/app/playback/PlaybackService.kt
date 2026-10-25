@@ -4,7 +4,6 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.media.AudioManager
 import android.os.Bundle
-import android.webkit.WebSettings
 import androidx.annotation.OptIn
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
@@ -23,6 +22,7 @@ import androidx.media3.session.SessionResult
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.musicfeed.app.MainActivity
+import com.musicfeed.app.instagram.InstagramSession
 import com.musicfeed.app.instagram.NotLoggedInException
 import com.musicfeed.app.instagram.ReelsApi
 import kotlinx.coroutines.CoroutineScope
@@ -52,8 +52,7 @@ class PlaybackService : MediaSessionService() {
 
     override fun onCreate() {
         super.onCreate()
-        val userAgent = runCatching { WebSettings.getDefaultUserAgent(this) }
-            .getOrDefault("Mozilla/5.0 (Linux; Android) MusicFeed")
+        val userAgent = InstagramSession.userAgent(this)
         api = ReelsApi(userAgent)
 
         val httpFactory = DefaultHttpDataSource.Factory()

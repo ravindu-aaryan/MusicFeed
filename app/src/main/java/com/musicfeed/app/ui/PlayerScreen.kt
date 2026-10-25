@@ -275,7 +275,8 @@ private fun NowPlaying(
 
         Spacer(Modifier.height(24.dp))
         Text(
-            text = metadata?.title?.toString() ?: "Loading your reels…",
+            text = metadata?.title?.toString()
+                ?: if (ui == null) "Connecting to player…" else "Loading your reels…",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold,
             maxLines = 2,
